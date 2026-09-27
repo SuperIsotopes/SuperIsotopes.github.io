@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Amie Owen · Portfolio</title>
+<meta name="description" content="Amie Owen, learner of institutions. Projects: Pigeon Post, The Daily Cynic and Whodunnit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --bg: #FAFAFA;
+    --card: #FFFFFF;
+    --ink: #2F2F2F;
+    --muted: #6F6F6F;
+    --line: #E6E6E6;
+    --btn: #333333;
+    --btn-ink: #FFFFFF;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161616; --card: #1F1F1F; --ink: #EDEDED; --muted: #A3A3A3;
+      --line: #2E2E2E; --btn: #EDEDED; --btn-ink: #161616; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161616; --card: #1F1F1F; --ink: #EDEDED; --muted: #A3A3A3;
+    --line: #2E2E2E; --btn: #EDEDED; --btn-ink: #161616; color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 14px/1.6 "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding-inline: 24px; }
+  a { color: inherit; }
+  a:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 6px; }
+
+  /* Hero */
+  .hero {
+    display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 48px; align-items: center; padding-block: 64px 48px;
+  }
+  .hero h1 { font-size: clamp(30px, 4.5vw, 44px); line-height: 1.1; font-weight: 600; margin: 0 0 18px; letter-spacing: -.01em; }
+  .role { display: flex; align-items: flex-start; gap: 16px; margin: 0 0 18px; font-size: clamp(15px, 1.6vw, 17px); font-weight: 500; line-height: 1.35; }
+  .role::before { content: ""; flex: 0 0 56px; height: 1px; background: var(--muted); margin-top: .7em; }
+  .bio { color: var(--muted); font-size: 14px; max-width: 36em; margin: 0 0 28px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 12px; text-decoration: none;
+    background: var(--btn); color: var(--btn-ink); font-weight: 500; font-size: 14px;
+    padding: 12px 20px; border-radius: 12px; transition: transform .15s ease, opacity .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); opacity: .92; }
+  .btn svg { width: 16px; height: 16px; }
+  button.btn { border: 0; font-family: inherit; cursor: pointer; }
+  .btn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn:focus-visible, .field input:focus-visible, .field textarea:focus-visible, .close:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+  /* Contact dialog */
+  dialog {
+    width: min(100% - 32px, 440px); border: 0; border-radius: 20px; padding: 28px;
+    background: var(--card); color: var(--ink); box-shadow: 0 30px 60px -20px rgba(0,0,0,.4);
+  }
+  dialog::backdrop { background: rgba(0,0,0,.35); }
+  .dialog-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+  .dialog-head h2 { font-size: 20px; font-weight: 600; margin: 0; }
+  .close { background: none; border: 0; color: var(--muted); font-size: 22px; line-height: 1; cursor: pointer; padding: 4px 8px; border-radius: 8px; }
+  .close:hover { color: var(--ink); }
+  .contact-form { display: grid; gap: 14px; }
+  .field { display: grid; gap: 6px; }
+  .field label { font-size: 13px; font-weight: 500; }
+  .field input, .field textarea {
+    font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line);
+    border-radius: 10px; padding: 10px 12px; width: 100%;
+  }
+  .field textarea { min-height: 130px; resize: vertical; }
+  .honey { position: absolute; left: -9999px; }
+  .form-status { font-size: 13px; color: var(--muted); margin: 0; min-height: 1.4em; }
+  .form-status.ok { color: #2E7D4F; }
+  .form-status.err { color: #B3362C; }
+  .contact-form .btn { justify-self: start; }
+  .contact-form .btn[disabled] { opacity: .6; cursor: default; transform: none; }
+
+  .photo {
+    justify-self: center; width: min(100%, 128px); aspect-ratio: 1;
+    border-radius: 50%;
+    box-shadow: 0 18px 40px -24px rgba(0,0,0,.35);
+    overflow: hidden; background: var(--line);
+    display: grid; place-items: center;
+  }
+  .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Portfolio */
+  .portfolio { padding-block: 40px 96px; }
+  .portfolio header { text-align: center; margin-bottom: 32px; }
+  .portfolio h2 { font-size: clamp(24px, 3vw, 30px); font-weight: 600; margin: 0; line-height: 1.1; }
+  .portfolio header p { color: var(--muted); margin: 8px 0 0; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 24px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 20px;
+    display: flex; flex-direction: column; transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px -20px rgba(0,0,0,.25); }
+  .thumb {
+    aspect-ratio: 16 / 10; border-radius: 14px; overflow: hidden; position: relative;
+    display: grid; place-items: center; text-align: center; padding: 16px;
+    background: var(--tint); color: var(--tint-ink);
+  }
+  .thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .thumb span { font-weight: 600; font-size: 18px; line-height: 1.2; }
+  .t-pigeon { --tint: #F3DCD6; --tint-ink: #8A2F22; }
+  .t-cynic  { --tint: #E4E1D8; --tint-ink: #2B2B2B; }
+  .t-who    { --tint: #2A2A2E; --tint-ink: #F0D9D4; }
+  .card h3 { font-size: 16px; font-weight: 500; margin: 16px 0 4px; }
+  .card p { color: var(--muted); margin: 0 0 6px; }
+  .stack { font-size: 12px; }
+  .links { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: auto; padding-top: 10px; }
+  .links a { color: var(--muted); text-decoration: none; font-size: 13px; }
+  .links a:hover { color: var(--ink); }
+
+  footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var(--muted); font-size: 12px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+
+  @media (max-width: 800px) {
+    .hero { grid-template-columns: 1fr; padding-block: 48px 40px; gap: 36px; }
+    .photo { order: -1; width: min(100%, 88px); justify-self: start; }
+    .role::before { flex-basis: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <h1>Amie</h1>
+      <p class="bio">Hello and welcome! I build small, fun projects as a creative endeavor. Hope you enjoy and thanks for stopping by. :)</p>
+      <div class="actions">
+        <a class="btn ghost" href="https://github.com/SuperIsotopes" target="_blank" rel="noopener">GitHub</a>
+        <button class="btn" type="button" id="open-contact">
+          Contact me
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3 10 14"/><path d="M21 3 14.5 21 10 14 3 9.5Z"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="photo">
+      <img src="images/profile.png" alt="Amie Owen">
+    </div>
+  </section>
+
+  <section class="portfolio" id="portfolio">
+    <header>
+      <h2>Portfolio</h2>
+      <p>Most recent work</p>
+    </header>
+
+    <div class="grid">
+      <article class="card">
+        <div class="thumb t-pigeon">
+          <span>Pigeon Post</span>
+          <img src="images/pigeon-post.png" data-shot="https://s0.wp.com/mshots/v1/https%3A%2F%2Fpigeon-post-five.vercel.app%2F?w=1200&amp;h=750" loading="lazy" alt="Screenshot of Pigeon Post">
+        </div>
+        <h3>Pigeon Post</h3>
+        <p>Write a note, pick a pigeon and send it as a link. For people who miss getting mail.</p>
+        <p class="stack">HTML + CSS + JavaScript</p>
+        <div class="links">
+          <a href="https://pigeon-post-five.vercel.app/" target="_blank" rel="noopener">Demo →</a>
+          <a href="https://github.com/SuperIsotopes/PigeonPost" target="_blank" rel="noopener">GitHub →</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="thumb t-cynic">
+          <span>The Daily Cynic</span>
+          <img src="images/daily-cynic.png" data-shot="https://s0.wp.com/mshots/v1/https%3A%2F%2Fthe-daily-cynic.vercel.app%2F?w=1200&amp;h=750" loading="lazy" alt="Screenshot of The Daily Cynic">
+        </div>
+        <h3>The Daily Cynic</h3>
+        <p>A daily dose of cynicism: an advice oracle, gloomy headlines and a Hope Index, in newspaper form.</p>
+        <p class="stack">HTML + CSS + JavaScript</p>
+        <div class="links">
+          <a href="https://the-daily-cynic.vercel.app/" target="_blank" rel="noopener">Demo →</a>
+          <a href="https://github.com/SuperIsotopes/TheDailyCynic" target="_blank" rel="noopener">GitHub →</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="thumb t-who">
+          <span>Whodunnit</span>
+          <img src="images/whodunnit.png" data-shot="https://s0.wp.com/mshots/v1/https%3A%2F%2Fwhodunnit-three.vercel.app%2F?w=1200&amp;h=750" loading="lazy" alt="Screenshot of Whodunnit">
+        </div>
+        <h3>Whodunnit</h3>
+        <p>A murder mystery board. Pin up suspects, drag them around and connect them with red string.</p>
+        <p class="stack">HTML + CSS + JavaScript</p>
+        <div class="links">
+          <a href="https://whodunnit-three.vercel.app/" target="_blank" rel="noopener">Demo →</a>
+          <a href="https://github.com/SuperIsotopes/whodunnit" target="_blank" rel="noopener">GitHub →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Amie Owen</span>
+    <a href="https://github.com/SuperIsotopes" target="_blank" rel="noopener">github.com/SuperIsotopes</a>
+  </footer>
+</main>
+
+<dialog id="contact" aria-labelledby="contact-title">
+  <div class="dialog-head">
+    <h2 id="contact-title">Contact me</h2>
+    <button class="close" type="button" id="close-contact" aria-label="Close">×</button>
+  </div>
+  <form class="contact-form" id="contact-form">
+    <div class="field">
+      <label for="c-name">Name</label>
+      <input id="c-name" name="name" type="text" autocomplete="name" required>
+    </div>
+    <div class="field">
+      <label for="c-email">Your email</label>
+      <input id="c-email" name="email" type="email" autocomplete="email" required>
+    </div>
+    <div class="field">
+      <label for="c-message">Message</label>
+      <textarea id="c-message" name="message" required></textarea>
+    </div>
+    <input class="honey" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button class="btn" type="submit" id="c-send">Send message</button>
+    <p class="form-status" id="c-status" role="status"></p>
+  </form>
+</dialog>
+
+<script>
+  // Messages are delivered to Amie's inbox by FormSubmit (formsubmit.co).
+  var FORM_ENDPOINT = 'https://formsubmit.co/ajax/amielynnowen@gmail.com';
+  var dlg = document.getElementById('contact');
+  var form = document.getElementById('contact-form');
+  var statusEl = document.getElementById('c-status');
+  var sendBtn = document.getElementById('c-send');
+
+  document.getElementById('open-contact').addEventListener('click', function () {
+    statusEl.textContent = ''; statusEl.className = 'form-status';
+    dlg.showModal();
+  });
+  document.getElementById('close-contact').addEventListener('click', function () { dlg.close(); });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var data = Object.fromEntries(new FormData(form));
+    if (data._honey) return;
+    data._subject = 'New message from your portfolio';
+    data._replyto = data.email;
+    sendBtn.disabled = true; sendBtn.textContent = 'Sending…';
+    statusEl.textContent = ''; statusEl.className = 'form-status';
+    fetch(FORM_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    })
+      .then(function (r) { return r.json().then(function (j) { if (!r.ok || String(j.success) !== 'true') throw new Error(j.message || 'Send failed'); }); })
+      .then(function () {
+        form.reset();
+        statusEl.textContent = 'Thanks! Your message was sent.';
+        statusEl.className = 'form-status ok';
+      })
+      .catch(function () {
+        statusEl.textContent = 'The message couldn\'t be sent. Check your connection and try again.';
+        statusEl.className = 'form-status err';
+      })
+      .finally(function () { sendBtn.disabled = false; sendBtn.textContent = 'Send message'; });
+  });
+</script>
+
+<script>
+  // Each card tries images/<name>.png first, then a live snapshot of the site.
+  document.querySelectorAll('.thumb img').forEach(function (img) {
+    function fail() {
+      if (img.dataset.shot && img.src !== img.dataset.shot) { img.src = img.dataset.shot.replace(/&amp;/g, '&'); }
+      else { img.remove(); }
+    }
+    img.addEventListener('error', fail);
+    if (img.complete && img.naturalWidth === 0) fail();
+  });
+</script>
+</body>
+</html>
